@@ -7,7 +7,7 @@
     <h1>Projeto com o Sistema Alpine Linux</h1>
     <h2>Objetivo do Projeto</h2>
     <p>O objetivo desta página é criar um projeto onde configuramos o Alpine Linux para garantir sua segurança e permitir que ele funcione como um sistema operacional comum. No entanto, a grande diferença é que, além de utilizarmos o sistema como principal, também implementaremos ferramentas de pentest para trabalhar com segurança.</p>
-    <p>Vamos utilizar programas já conhecidos e presentes em uma das grandes distribuições para pentesters e hackers chamada Kali Linux.</p>
+    <p>Vamos utilizar programas já conhecidos para pentesters em uma das grandes distribuições para pentesters e hackers chamada Kali Linux.</p>
     <p>Este sistema contém ferramentas bastante conhecidas para esse público específico de testes de segurança, como Metasploit, Nmap, SQL Injection, entre outros.</p>
     <h2> <a href="https://fresh-party-7cb.notion.site/Alpine-Linux-174a676ece98800f86f7dbd322d9ea1b">Sobre o Sistema</a></h2>
     <h2>Intuito do Projeto</h2>
