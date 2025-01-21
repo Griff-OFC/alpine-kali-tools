@@ -15,7 +15,7 @@
 	apk upgrade && apk update
 	echo "http://dl-cdn.alpinelinux.org/alpine/v3.21/community" >> /etc/apk/repositories
 	apk upgrade && apk update
-	echo "add sucess"
+	echo "add sucess\n"
 	sleep 2
 	clear
  }
@@ -23,7 +23,7 @@
 	apk upgrade && apk update
 	echo "@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 	apk upgrade && apk update
-	echo "add sucess"
+	echo "add sucess\n"
 	sleep 2
 	clear
   }
@@ -62,7 +62,7 @@ echo -ne "\t kali tools\n
 #Program installer according to the option
 		case "$op" in
 		  1)
-		    apk add nmap && apk upgrade && apk update && clear;;
+		    apk add nmap && apk upgrade && apk update && clear && echo "add nmap";;
 esac
 #invalid operation
 		if [ "$flag" = 1 ];then
