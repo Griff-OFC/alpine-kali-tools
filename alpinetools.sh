@@ -15,7 +15,7 @@
 	apk upgrade && apk update
 	echo "http://dl-cdn.alpinelinux.org/alpine/v3.21/community" >> /etc/apk/repositories
 	apk upgrade && apk update
-	echo "add sucess\n"
+	echo -e "add sucess\n"
 	sleep 2
 	clear
  }
@@ -23,7 +23,7 @@
 	apk upgrade && apk update
 	echo "@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 	apk upgrade && apk update
-	echo "add sucess\n"
+	echo -e "add sucess\n"
 	sleep 2
 	clear
   }
