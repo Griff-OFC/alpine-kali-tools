@@ -12,17 +12,17 @@
 	 read active_C;
 #functions for add repositories
  community () {
-	apk upgrade -y && apk update -y 
+	apk upgrade && apk update
 	echo "http://dl-cdn.alpinelinux.org/alpine/v3.21/community" >> /etc/apk/repositories
-	apk upgrade -y && apk update -y 
+	apk upgrade && apk update
 	echo "add sucess"
 	sleep 2
 	clear
  }
   edge () {
-	apk upgrade -y && apk update -y 
+	apk upgrade && apk update
 	echo "@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
-	apk upgrade -y && apk update -y 
+	apk upgrade && apk update
 	echo "add sucess"
 	sleep 2
 	clear
