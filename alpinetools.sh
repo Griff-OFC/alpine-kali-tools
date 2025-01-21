@@ -62,7 +62,7 @@ echo -ne "\t kali tools\n
 #Program installer according to the option
 		case "$op" in
 		  1)
-		    apk add nmap && apk upgrade && apk update && clear && echo "add nmap";;
+		    apk add nmap && apk upgrade && apk update && clear && echo "add nmap" && sleep 2 && clear;;
 esac
 #invalid operation
 		if [ "$flag" = 1 ];then
