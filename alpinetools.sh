@@ -15,7 +15,8 @@
 	apk upgrade && apk update
 	echo "http://dl-cdn.alpinelinux.org/alpine/v3.21/community" >> /etc/apk/repositories
 	apk upgrade && apk update
-	echo -e "add sucess\n"
+ 	clear
+	echo -e "\t add sucess\n"
 	sleep 2
 	clear
  }
@@ -23,7 +24,8 @@
 	apk upgrade && apk update
 	echo "@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 	apk upgrade && apk update
-	echo -e "add sucess\n"
+ 	clear
+	echo -e "\t add sucess\n"
 	sleep 2
 	clear
   }
@@ -47,6 +49,8 @@
 	else 
 	 if [ "$active_E" = "N" -o "$active_E" = "n" ];then
 	echo "No activad";
+ 	sleep 2
+  	clear
 	else
 	flag=1;
 fi
@@ -61,8 +65,14 @@ echo -ne "\t kali tools\n
 	read op;
 #Program installer according to the option
 		case "$op" in
+  		  0)
+      		    ex=0;;
 		  1)
-		    apk add nmap && apk upgrade && apk update && clear && echo "add nmap" && sleep 2 && clear;;
+		    apk add nmap && apk upgrade && apk update && clear && echo -e "\t add nmap" && sleep 2 && clear;;
+      		  2)
+	  	    apk add gobuster@testing && apk upgrade && apk update && clear && echo -e "\t add gobuster" && sleep 2 && clear;;
+		  3)
+    		    apk add hydra && apk upgrade && apk update && clear && echo -e "\t add hydra" && sleep 2 && clear;;
 esac
 #invalid operation
 		if [ "$flag" = 1 ];then
