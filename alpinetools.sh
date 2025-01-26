@@ -60,11 +60,12 @@ main() {
 			ex=1
 			while [ "$ex" = 1 ]; do
 				#selection option
-				echo -ne "\t kali tools\n 
-         1) nmap
-         2) gobuster
-         3) hydra
-         0) exit\n
+				echo -ne "\t Kali tools\n 
+         1) Nmap
+         2) Gobuster
+         3) Hydra
+	 4) Wireshark
+         0) Exit\n
          select the tool you want to install: "
 				read op
 				#Program installer according to the option
@@ -85,7 +86,7 @@ main() {
 					apk add wireshark && apk upgrade && apk update && clear && echo -e "\t add wireshark" && sleep 2 && clear
 					;;
 				5)
-					apk add hydra && apk upgrade && apk update && clear && echo -e "\t add hydra" && sleep 2 && clear
+					apk add hydra && apk upgrade && apk update && clear && echo -e "\t add Metasploit" && sleep 2 && clear
 					;;
 
 				esac
@@ -94,7 +95,7 @@ main() {
 	fi
 	#invalid operation
 	if [ "$ex" = 2 ]; then
-		echo "invalid operation!"
+		echo "Invalid operation!"
 	fi
 }
 main
