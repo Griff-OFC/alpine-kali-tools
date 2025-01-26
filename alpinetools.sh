@@ -29,14 +29,14 @@ main() {
 		sleep 2
 		clear
 	}
-	 meta () {
-                apk add build-base ruby ruby-bigdecimal ruby-bundler ruby-io-console ruby-webrick ruby-dev libffi-dev openssl-dev readline-dev sqlite-dev postgresql-dev libpcap-dev libxml2-dev libxslt-dev yaml-dev zlib-dev ncurses-dev autoconf bison subversion git sqlite nmap libxslt postgresql ncurses
-		cd /opt/ && git clone https://github.com/rapid7/metasploit-framework.git && cd metasploit-framework && gem install bundler && bundle update && bundle install 
-  		ln -sf ${PREFIX}/opt/metasploit-framework/msfconsole ${PREFIX}/bin/
+	meta() {
+		apk add build-base ruby ruby-bigdecimal ruby-bundler ruby-io-console ruby-webrick ruby-dev libffi-dev openssl-dev readline-dev sqlite-dev postgresql-dev libpcap-dev libxml2-dev libxslt-dev yaml-dev zlib-dev ncurses-dev autoconf bison subversion git sqlite nmap libxslt postgresql ncurses
+		cd /opt/ && git clone https://github.com/rapid7/metasploit-framework.git && cd metasploit-framework && gem install bundler && bundle update && bundle install
+		ln -sf ${PREFIX}/opt/metasploit-framework/msfconsole ${PREFIX}/bin/
 		ln -sf ${PREFIX}/opt/metasploit-framework/msfvenom ${PREFIX}/bin/
 		ln -sf ${PREFIX}/opt/metasploit-framework/msfrpcd ${PREFIX}/bin/
 
-        }
+	}
 
 	if [ "$active_C" = "Y" -o "$active_C" = "y" ]; then
 		community
@@ -97,6 +97,9 @@ main() {
 					;;
 				5)
 					meta && apk upgrade && apk update && clear && echo -e "\t add Metasploit" && sleep 2 && clear
+					;;
+				6)
+					apk add ffuf && apk upgrade && apk update && clear && echo -e "\t add ffuf" && sleep 2 && clear
 					;;
 
 				esac
