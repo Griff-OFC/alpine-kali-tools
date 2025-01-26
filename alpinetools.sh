@@ -31,7 +31,7 @@ main() {
 	}
 	 meta () {
                 apk add build-base ruby ruby-bigdecimal ruby-bundler ruby-io-console ruby-webrick ruby-dev libffi-dev openssl-dev readline-dev sqlite-dev postgresql-dev libpcap-dev libxml2-dev libxslt-dev yaml-dev zlib-dev ncurses-dev autoconf bison subversion git sqlite nmap libxslt postgresql ncurses
-		git clone https://github.com/rapid7/metasploit-framework.git && cd /usr/share/metasploit-framework && /usr/bin/bundle update --bundler && /usr/bin/bundle install
+		git clone https://github.com/rapid7/metasploit-framework.git && cd metasploit-framework && bundle update && bundle install 
 
         }
 
@@ -93,7 +93,7 @@ main() {
 					apk add wireshark && apk upgrade && apk update && clear && echo -e "\t add wireshark" && sleep 2 && clear
 					;;
 				5)
-					apk add curl && meta && apk upgrade && apk update && clear && echo -e "\t add Metasploit" && sleep 2 && clear
+					meta && apk upgrade && apk update && clear && echo -e "\t add Metasploit" && sleep 2 && clear
 					;;
 
 				esac
