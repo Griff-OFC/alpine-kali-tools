@@ -30,13 +30,9 @@ main() {
 		clear
 	}
 	 meta () {
-                apk add ruby-irb ruby-ri rubygems subversion ruby-dev libpcap-devel postgresql postgresql-dev
-                wget http://downloads.metasploit.com/data/releases/framework-latest.tar.bz2
-                tar -jxf framework-latest.tar.bz2
-                su mkdir -p /opt/metasploit4
-                su cp -a msf/ /opt/metasploit4/msf
-                su chown root:root -R /opt/metasploit4/msf
-                su ln -sf /opt/metasploit4/msf/msf* /usr/local/bin/
+                curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && \
+  		chmod 755 msfinstall && \
+ 		./msfinstall
         }
 
 	if [ "$active_C" = "Y" -o "$active_C" = "y" ]; then
@@ -75,6 +71,7 @@ main() {
          2) Gobuster
          3) Hydra
 	 4) Wireshark
+  	 5) Metasploit
          0) Exit\n
          select the tool you want to install: "
 				read op
@@ -96,7 +93,7 @@ main() {
 					apk add wireshark && apk upgrade && apk update && clear && echo -e "\t add wireshark" && sleep 2 && clear
 					;;
 				5)
-					apk add hydra && apk upgrade && apk update && clear && echo -e "\t add Metasploit" && sleep 2 && clear
+					apk add curl && meta && apk upgrade && apk update && clear && echo -e "\t add Metasploit" && sleep 2 && clear
 					;;
 
 				esac
