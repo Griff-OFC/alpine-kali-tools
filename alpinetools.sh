@@ -30,9 +30,9 @@ main() {
 		clear
 	}
 	 meta () {
-                curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && \
-  		chmod 755 msfinstall && \
- 		./msfinstall
+                apk add build-base ruby ruby-bigdecimal ruby-bundler ruby-io-console ruby-webrick ruby-dev libffi-dev openssl-dev readline-dev sqlite-dev postgresql-dev libpcap-dev libxml2-dev libxslt-dev yaml-dev zlib-dev ncurses-dev autoconf bison subversion git sqlite nmap libxslt postgresql ncurses
+		git clone https://github.com/rapid7/metasploit-framework.git && cd /usr/share/metasploit-framework && /usr/bin/bundle update --bundler && /usr/bin/bundle install
+
         }
 
 	if [ "$active_C" = "Y" -o "$active_C" = "y" ]; then
