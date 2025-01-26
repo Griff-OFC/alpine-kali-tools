@@ -29,6 +29,16 @@ main() {
 		sleep 2
 		clear
 	}
+	 meta () {
+                apk add ruby-irb ruby-ri rubygems subversion ruby-dev libpcap-devel postgresql postgresql-dev
+                wget http://downloads.metasploit.com/data/releases/framework-latest.tar.bz2
+                tar -jxf framework-latest.tar.bz2
+                su mkdir -p /opt/metasploit4
+                su cp -a msf/ /opt/metasploit4/msf
+                su chown root:root -R /opt/metasploit4/msf
+                su ln -sf /opt/metasploit4/msf/msf* /usr/local/bin/
+        }
+
 	if [ "$active_C" = "Y" -o "$active_C" = "y" ]; then
 		community
 	else
