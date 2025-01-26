@@ -3,12 +3,12 @@
 #Project for X102BA
 main() {
 	clear
-	flag=0
+	ex=0
 	#add community repo
 	echo -ne "\t Welcome!
- 	 Alpine Kali Tools
-	 Community repository needs activity
-	 Is it activated? (Y or N):"
+         Alpine Kali Tools
+         Community repository needs activity
+         Is it activated? (Y or N):"
 	read active_C
 	#functions for add repositories
 	community() {
@@ -37,49 +37,63 @@ main() {
 			sleep 2
 			clear
 		else
-			flag=1
+			ex=2
 		fi
 	fi
 	#add testing repo
-	echo -ne "\t  Edge repository needs activity
-		Is it activated? (Y or N):"
-	read active_E
-	if [ "$active_E" = "Y" -o "$active_E" = "y" ]; then
-		edge
-	else
-		if [ "$active_E" = "N" -o "$active_E" = "n" ]; then
-			echo "No activad"
-			sleep 2
-			clear
+	if [ "$ex" = 0 ]; then
+		echo -ne "\t  Edge repository needs activity
+                Is it activated? (Y or N):"
+		read active_E
+		if [ "$active_E" = "Y" -o "$active_E" = "y" ]; then
+			edge
 		else
-			flag=1
+			if [ "$active_E" = "N" -o "$active_E" = "n" ]; then
+				echo "No activad"
+				sleep 2
+				clear
+			else
+				ex=2
+			fi
+		fi
+		if [ "$ex" = 0 ]; then
+			ex=1
+			while [ "$ex" = 1 ]; do
+				#selection option
+				echo -ne "\t kali tools\n 
+         1) nmap
+         2) gobuster
+         3) hydra
+         0) exit\n
+         select the tool you want to install: "
+				read op
+				#Program installer according to the option
+				case "$op" in
+				0)
+					ex=0
+					;;
+				1)
+					apk add nmap && apk upgrade && apk update && clear && echo -e "\t add nmap" && sleep 2 && clear
+					;;
+				2)
+					apk add gobuster@testing && apk upgrade && apk update && clear && echo -e "\t add gobuster" && sleep 2 && clear
+					;;
+				3)
+					apk add hydra && apk upgrade && apk update && clear && echo -e "\t add hydra" && sleep 2 && clear
+					;;
+				4)
+					apk add wireshark && apk upgrade && apk update && clear && echo -e "\t add wireshark" && sleep 2 && clear
+					;;
+				5)
+					apk add hydra && apk upgrade && apk update && clear && echo -e "\t add hydra" && sleep 2 && clear
+					;;
+
+				esac
+			done
 		fi
 	fi
-	#selection option
-	echo -ne "\t kali tools\n 
-	 1) nmap
-	 2) gobuster
-	 3) hydra
-	 0) exit\n
-	 select the tool you want to install: "
-	read op
-	#Program installer according to the option
-	case "$op" in
-	0)
-		ex=0
-		;;
-	1)
-		apk add nmap && apk upgrade && apk update && clear && echo -e "\t add nmap" && sleep 2 && clear
-		;;
-	2)
-		apk add gobuster@testing && apk upgrade && apk update && clear && echo -e "\t add gobuster" && sleep 2 && clear
-		;;
-	3)
-		apk add hydra && apk upgrade && apk update && clear && echo -e "\t add hydra" && sleep 2 && clear
-		;;
-	esac
 	#invalid operation
-	if [ "$flag" = 1 ]; then
+	if [ "$ex" = 2 ]; then
 		echo "invalid operation!"
 	fi
 }
