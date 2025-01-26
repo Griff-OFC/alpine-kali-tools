@@ -31,7 +31,10 @@ main() {
 	}
 	 meta () {
                 apk add build-base ruby ruby-bigdecimal ruby-bundler ruby-io-console ruby-webrick ruby-dev libffi-dev openssl-dev readline-dev sqlite-dev postgresql-dev libpcap-dev libxml2-dev libxslt-dev yaml-dev zlib-dev ncurses-dev autoconf bison subversion git sqlite nmap libxslt postgresql ncurses
-		git clone https://github.com/rapid7/metasploit-framework.git && cd metasploit-framework && bundle update && bundle install 
+		cd /opt/ && git clone https://github.com/rapid7/metasploit-framework.git && cd metasploit-framework && gem install bundler && bundle update && bundle install 
+  		ln -sf ${PREFIX}/opt/metasploit-framework/msfconsole ${PREFIX}/bin/
+		ln -sf ${PREFIX}/opt/metasploit-framework/msfvenom ${PREFIX}/bin/
+		ln -sf ${PREFIX}/opt/metasploit-framework/msfrpcd ${PREFIX}/bin/
 
         }
 
