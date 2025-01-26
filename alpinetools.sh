@@ -75,6 +75,7 @@ main() {
          3) Hydra
 	 4) Wireshark
   	 5) Metasploit
+    	 6) Ffuf
          0) Exit\n
          select the tool you want to install: "
 				read op
