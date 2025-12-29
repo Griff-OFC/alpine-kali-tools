@@ -22,11 +22,11 @@
         <li>✅ hydra</li>
         <li>✅ wireshark</li>
         <li>✅ ffuf</li>
-        <li>❌ aircrack-ng</li>
-        <li>❌ netcat</li>
-        <li>❌ powershell</li>
+        <li>✅ aircrack-ng</li>
+        <li>✅ netcat</li>
+        <li>✅ powershell</li>
         <li>❌ theharvester</li>
-        <li>❌ sqlmap</li>
+        <li>✅ sqlmap</li>
         <li>❌ rkhunter</li>
         <li>❌ legion</li>
         <li>❌ dirb</li>
