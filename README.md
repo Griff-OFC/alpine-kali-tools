@@ -31,7 +31,7 @@
         <li>❌ legion</li>
         <li>❌ dirb</li>
         <li>❌ steghide</li>
-        <li>❌ hashcat</li>
+        <li>✅ hashcat</li>
         <li>❌ responder</li>
         <li>❌ cewl</li>
         <li>❌ snort</li>
