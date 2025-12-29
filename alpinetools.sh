@@ -13,7 +13,12 @@ main() {
 	#functions for add repositories
 	community() {
 		apk upgrade && apk update
+		if grep  -qF "http://dl-cdn.alpinelinux.org/alpine/v3.21/community" "/etc/apk/repositories"; then
+		echo -ne "the repository is already activated."
+		else
 		echo "http://dl-cdn.alpinelinux.org/alpine/v3.21/community" >>/etc/apk/repositories
+		fi
+		sleep 1
 		apk upgrade && apk update
 		clear
 		echo -e "\t add sucess\n"
@@ -22,7 +27,12 @@ main() {
 	}
 	edge() {
 		apk upgrade && apk update
+		if grep -qF "@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing" "/etc/apk/repositories"; then
+		echo -ne "the repository is already activated."
+                else
 		echo "@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing" >>/etc/apk/repositories
+		fi
+		sleep 1
 		apk upgrade && apk update
 		clear
 		echo -e "\t add sucess\n"
@@ -76,6 +86,11 @@ main() {
 	 4) Wireshark
   	 5) Metasploit
     	 6) Ffuf
+	 7) Aircrack-ng
+	 8) Netcat
+	 9) Powershell
+	10) Sqlmap
+	11) Hashcat
          0) Exit\n
          select the tool you want to install: "
 				read op
@@ -102,6 +117,21 @@ main() {
 				6)
 					apk add ffuf && apk upgrade && apk update && clear && echo -e "\t add ffuf" && sleep 2 && clear
 					;;
+
+				7)	apk add aircrack-ng && apk upgrade && apk update && clear && echo -e "\t add Aircrack-ng" && sleep 2 && clear
+                                        ;;
+
+				8)	apk add netcat-openbsd && apk upgrade && apk update && clear && echo -e "\t add Netcat" && sleep 2 && clear
+                                        ;;
+
+				9)	apk add powershell && apk upgrade && apk update && clear && echo -e "\t add Powershell" && sleep 2 && clear
+                                        ;;
+
+				10)	apk add sqlmap@testing && apk upgrade && apk update && clear && echo -e "\t add Sqlmap" && sleep 2 && clear
+                                        ;;
+
+				11)	apk add hashcat && apk upgrade && apk update && clear && echo -e "\t add hashcat" && sleep 2 && clear
+                                        ;;
 
 				esac
 			done
