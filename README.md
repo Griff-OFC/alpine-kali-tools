@@ -1,45 +1,40 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-</head>
-<body>
-    <h1>Projeto com o Sistema Alpine Linux</h1>
-    <h2>Objetivo do Projeto</h2>
-    <p>O objetivo desta página é criar um projeto onde configuramos o Alpine Linux para garantir sua segurança e permitir que ele funcione como um sistema operacional comum. No entanto, a grande diferença é que, além de utilizarmos o sistema como principal, também implementaremos ferramentas de pentest para trabalhar com segurança.</p>
-    <p>Vamos utilizar programas já conhecidos para pentesters redirecionado de uma das grandes distribuições para pentesters e hackers chamada Kali Linux.</p>
-    <p>Este sistema contém ferramentas bastante conhecidas para esse público específico de testes de segurança, como Metasploit, Nmap, SQL Injection, entre outros.</p>
-    <h2> <a href="https://fresh-party-7cb.notion.site/Alpine-Linux-174a676ece98800f86f7dbd322d9ea1b">Sobre o Sistema Alpine Linux</a></h2>
-    <h2>Intuito do Projeto</h2>
-    <p>O intuito deste projeto é criar um script que permita utilizar essas ferramentas do Kali Linux no Alpine Linux, para que os usuários dessa distribuição possam fazer uso desses programas e ferramentas.</p>
-    <p>Um dos motivos que também me motivaram é que eu tenho um netbook com uma configuração bem limitada, e o Alpine Linux foi o único sistema Linux que pude utilizar com uma boa performance e sem travar o notebook, sendo um dos sistemas mais estáveis para o meu hardware,que eu possa estudar mais sobre as ferramentas e testa-las.</p>
-    <h2>Ferramentas do Kali Linux</h2>
-    <p>O código traz consigo a instalação das seguintes ferramentas para o Alpine Linux:</p>
-    <ul>
-        <li>✅ Metasploit-Framework</li>
-        <li>✅ Nmap</li>
-        <li>✅ gobuster</li>
-        <li>✅ hydra</li>
-        <li>✅ wireshark</li>
-        <li>✅ ffuf</li>
-        <li>✅ aircrack-ng</li>
-        <li>✅ netcat</li>
-        <li>✅ powershell</li>
-        <li>❌ theharvester</li>
-        <li>✅ sqlmap</li>
-        <li>❌ rkhunter</li>
-        <li>❌ legion</li>
-        <li>❌ dirb</li>
-        <li>❌ steghide</li>
-        <li>✅ hashcat</li>
-        <li>❌ responder</li>
-        <li>❌ cewl</li>
-        <li>❌ snort</li>
-        <li>❌ nuclei</li>
-        <li>❌ wpscan</li>
-        <li>❌ wifite</li>
-        <li>❌ sqlsus</li>
-        <li>❌ netdiscover</li>
-    </ul>
-</body>
-</html>
+# 🐉 Alpine Kali Tools
+Bem-vindo ao **Alpine Kali Tools**! 
+Este projeto tem o objetivo de transformar o Alpine Linux — um sistema operacional incrivelmente leve, rápido e estável — em uma verdadeira máquina de pentest, trazendo as **principais ferramentas utilizadas no Kali Linux** diretamente para o seu ambiente.
+Focado na simplicidade, este instalador em Shell Script adiciona apenas os programas nativos e mais consagrados da comunidade de segurança ofensiva. Se você tem um hardware mais modesto e precisa de um sistema que não trava, mas sem abrir mão do seu arsenal de segurança, este projeto é para você!
+## 🚀 Ferramentas Suportadas
+As ferramentas listadas abaixo foram automatizadas e podem ser instaladas de forma limpa e direta pelo script no seu Alpine Linux:
+### 🔍 Information Gathering & Vulnerability Analysis
+- ✅ **Nmap**
+- ✅ **Nuclei**
+- ✅ **Netdiscover**
+- ✅ **Snort**
+### 🔓 Password Attacks
+- ✅ **Hydra**
+- ✅ **Hashcat**
+- ✅ **John the Ripper**
+### 🌐 Web Application Analysis
+- ✅ **Sqlmap**
+- ✅ **Ffuf**
+- ✅ **Gobuster**
+### 📡 Wireless Attacks & Sniffing/Spoofing
+- ✅ **Aircrack-ng**
+- ✅ **Wireshark**
+- ✅ **Responder**
+### 💻 Exploitation & Post Exploitation
+- ✅ **Metasploit-Framework**
+- ✅ **Netcat**
+- ✅ **Powershell**
+### 🛡️ Forensics & Anti-Forensics
+- ✅ **Steghide**
+- ✅ **Rkhunter**
+---
+## 🛠️ Como Utilizar
+Basta clonar o repositório e executar o script principal com privilégios de root (ou `sudo`):
+```bash
+git clone https://github.com/Griff-OFC/alpine-kali-tools.git
+cd alpine-kali-tools
+chmod +x alpinetools.sh
+./alpinetools.sh
+```
+Aproveite o menu interativo e direto ao ponto para instalar suas ferramentas favoritas!
