@@ -1,145 +1,172 @@
 #!/bin/bash
-#By: Silva
-#Project for X102BA
-main() {
-	clear
-	ex=0
-	#add community repo
-	echo -ne "\t Welcome!
-         Alpine Kali Tools
-         Community repository needs activity
-         Is it activated? (Y or N):"
-	read active_C
-	#functions for add repositories
-	community() {
-		apk upgrade && apk update
-		if grep  -qF "http://dl-cdn.alpinelinux.org/alpine/v3.21/community" "/etc/apk/repositories"; then
-		echo -ne "the repository is already activated."
-		else
-		echo "http://dl-cdn.alpinelinux.org/alpine/v3.21/community" >>/etc/apk/repositories
-		fi
-		sleep 1
-		apk upgrade && apk update
-		clear
-		echo -e "\t add sucess\n"
-		sleep 2
-		clear
-	}
-	edge() {
-		apk upgrade && apk update
-		if grep -qF "@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing" "/etc/apk/repositories"; then
-		echo -ne "the repository is already activated."
-                else
-		echo "@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing" >>/etc/apk/repositories
-		fi
-		sleep 1
-		apk upgrade && apk update
-		clear
-		echo -e "\t add sucess\n"
-		sleep 2
-		clear
-	}
-	meta() {
-		apk add build-base ruby ruby-bigdecimal ruby-bundler ruby-io-console ruby-webrick ruby-dev libffi-dev openssl-dev readline-dev sqlite-dev postgresql-dev libpcap-dev libxml2-dev libxslt-dev yaml-dev zlib-dev ncurses-dev autoconf bison subversion sqlite nmap libxslt postgresql ncurses
-		cd /opt/ && git clone https://github.com/rapid7/metasploit-framework.git && cd metasploit-framework && gem install bundler && bundle update && bundle install
-		ln -sf ${PREFIX}/opt/metasploit-framework/msfconsole ${PREFIX}/bin/
-		ln -sf ${PREFIX}/opt/metasploit-framework/msfvenom ${PREFIX}/bin/
-		ln -sf ${PREFIX}/opt/metasploit-framework/msfrpcd ${PREFIX}/bin/
+# By: Silva
+# Refactored for Alpine Kali Tools v2.0 - Pure Shell & Native APK Edition
 
-	}
+# Cores
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
 
-	if [ "$active_C" = "Y" -o "$active_C" = "y" ]; then
-		community
-	else
-		if [ "$active_C" = "N" -o "$active_C" = "n" ]; then
-			echo "No activad"
-			sleep 2
-			clear
-		else
-			ex=2
-		fi
-	fi
-	#add testing repo
-	if [ "$ex" = 0 ]; then
-		echo -ne "\t  Edge repository needs activity
-                Is it activated? (Y or N):"
-		read active_E
-		if [ "$active_E" = "Y" -o "$active_E" = "y" ]; then
-			edge
-		else
-			if [ "$active_E" = "N" -o "$active_E" = "n" ]; then
-				echo "No activad"
-				sleep 2
-				clear
-			else
-				ex=2
-			fi
-		fi
-		if [ "$ex" = 0 ]; then
-			ex=1
-			while [ "$ex" = 1 ]; do
-				#selection option
-				echo -ne "\t Kali tools\n 
-         1) Nmap
-         2) Gobuster
-         3) Hydra
-	 4) Wireshark
-  	 5) Metasploit
-    	 6) Ffuf
-	 7) Aircrack-ng
-	 8) Netcat
-	 9) Powershell
-	10) Sqlmap
-	11) Hashcat
-         0) Exit\n
-         select the tool you want to install: "
-				read op
-				#Program installer according to the option
-				case "$op" in
-				0)
-					ex=0
-					;;
-				1)
-					apk add nmap && apk upgrade && apk update && clear && echo -e "\t add nmap" && sleep 2 && clear
-					;;
-				2)
-					apk add gobuster@testing && apk upgrade && apk update && clear && echo -e "\t add gobuster" && sleep 2 && clear
-					;;
-				3)
-					apk add hydra && apk upgrade && apk update && clear && echo -e "\t add hydra" && sleep 2 && clear
-					;;
-				4)
-					apk add wireshark && apk upgrade && apk update && clear && echo -e "\t add wireshark" && sleep 2 && clear
-					;;
-				5)
-					meta && apk upgrade && apk update && clear && echo -e "\t add Metasploit" && sleep 2 && clear
-					;;
-				6)
-					apk add ffuf && apk upgrade && apk update && clear && echo -e "\t add ffuf" && sleep 2 && clear
-					;;
-
-				7)	apk add aircrack-ng && apk upgrade && apk update && clear && echo -e "\t add Aircrack-ng" && sleep 2 && clear
-                                        ;;
-
-				8)	apk add netcat-openbsd && apk upgrade && apk update && clear && echo -e "\t add Netcat" && sleep 2 && clear
-                                        ;;
-
-				9)	apk add powershell && apk upgrade && apk update && clear && echo -e "\t add Powershell" && sleep 2 && clear
-                                        ;;
-
-				10)	apk add sqlmap@testing && apk upgrade && apk update && clear && echo -e "\t add Sqlmap" && sleep 2 && clear
-                                        ;;
-
-				11)	apk add hashcat && apk upgrade && apk update && clear && echo -e "\t add hashcat" && sleep 2 && clear
-                                        ;;
-
-				esac
-			done
-		fi
-	fi
-	#invalid operation
-	if [ "$ex" = 2 ]; then
-		echo "Invalid operation!"
-	fi
+print_msg() {
+    echo -e "${GREEN}[*] $1${NC}"
 }
+
+print_err() {
+    echo -e "${RED}[!] $1${NC}"
+}
+
+print_warn() {
+    echo -e "${YELLOW}[!] $1${NC}"
+}
+
+# Verifica se é root
+if [ "$EUID" -ne 0 ]; then
+  print_err "Por favor, execute o script como root (sudo ./alpinetools.sh)"
+  exit
+fi
+
+# Configura repositórios
+setup_repos() {
+    print_msg "Verificando repositórios..."
+    
+    if ! grep -qF "community" /etc/apk/repositories; then
+        print_warn "Adicionando repositório Community..."
+        echo "http://dl-cdn.alpinelinux.org/alpine/latest-stable/community" >> /etc/apk/repositories
+    fi
+    
+    if ! grep -qF "testing" /etc/apk/repositories; then
+        print_warn "Adicionando repositório Edge Testing..."
+        echo "@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+    fi
+    
+    print_msg "Atualizando lista de pacotes..."
+    apk update > /dev/null 2>&1
+}
+
+# Verifica se pacote apk está instalado
+is_installed() {
+    apk info -e "$1" > /dev/null 2>&1
+}
+
+# Instala pacote via apk
+install_apk() {
+    local pkg=$1
+    if is_installed "${pkg%@*}"; then
+        print_warn "O pacote '${pkg%@*}' já está instalado."
+    else
+        print_msg "Instalando $pkg..."
+        apk add "$pkg"
+        if [ $? -eq 0 ]; then
+            print_msg "$pkg instalado com sucesso!"
+        else
+            print_err "Falha ao instalar $pkg."
+        fi
+    fi
+    sleep 1
+}
+
+# Instalação Metasploit (Mantido o método original clonado do git pois não possui apk oficial)
+install_metasploit() {
+    if [ -d "/opt/metasploit-framework" ]; then
+        print_warn "Metasploit já está instalado em /opt/metasploit-framework."
+        sleep 1
+        return
+    fi
+    print_msg "Instalando dependências do Metasploit..."
+    apk add build-base ruby ruby-bigdecimal ruby-bundler ruby-io-console ruby-webrick ruby-dev libffi-dev openssl-dev readline-dev sqlite-dev postgresql-dev libpcap-dev libxml2-dev libxslt-dev yaml-dev zlib-dev ncurses-dev autoconf bison subversion sqlite nmap libxslt postgresql ncurses git
+    
+    print_msg "Baixando Metasploit..."
+    cd /opt/ && git clone https://github.com/rapid7/metasploit-framework.git
+    cd metasploit-framework
+    gem install bundler && bundle update && bundle install
+    
+    ln -sf /opt/metasploit-framework/msfconsole /usr/bin/
+    ln -sf /opt/metasploit-framework/msfvenom /usr/bin/
+    ln -sf /opt/metasploit-framework/msfrpcd /usr/bin/
+    print_msg "Metasploit instalado com sucesso!"
+    sleep 2
+}
+
+show_menu() {
+    clear
+    echo -e "${CYAN}================================================================${NC}"
+    echo -e "${CYAN}                 🐉 ALPINE KALI TOOLS INSTALLER                 ${NC}"
+    echo -e "${CYAN}================================================================${NC}"
+    echo -e "Escolha a ferramenta que deseja instalar:\n"
+    
+    echo -e "${GREEN}[  1 ]${NC} Nmap              ${GREEN}[ 10 ]${NC} Gobuster"
+    echo -e "${GREEN}[  2 ]${NC} Nuclei            ${GREEN}[ 11 ]${NC} Aircrack-ng"
+    echo -e "${GREEN}[  3 ]${NC} Netdiscover       ${GREEN}[ 12 ]${NC} Wireshark"
+    echo -e "${GREEN}[  4 ]${NC} Snort             ${GREEN}[ 13 ]${NC} Responder"
+    echo -e "${GREEN}[  5 ]${NC} Hydra             ${GREEN}[ 14 ]${NC} Metasploit-Framework"
+    echo -e "${GREEN}[  6 ]${NC} Hashcat           ${GREEN}[ 15 ]${NC} Netcat"
+    echo -e "${GREEN}[  7 ]${NC} John the Ripper   ${GREEN}[ 16 ]${NC} Powershell"
+    echo -e "${GREEN}[  8 ]${NC} Sqlmap            ${GREEN}[ 17 ]${NC} Steghide"
+    echo -e "${GREEN}[  9 ]${NC} Ffuf              ${GREEN}[ 18 ]${NC} rkhunter"
+    echo -e " "
+    echo -e "${GREEN}[ 99 ]${NC} Instalar TODAS as ferramentas"
+    echo -e "${RED}[  0 ]${NC} Sair"
+    echo -e "${CYAN}================================================================${NC}"
+    echo -ne "Opção: "
+}
+
+install_all() {
+    install_apk "nmap"
+    install_apk "nuclei@testing"
+    install_apk "netdiscover@testing"
+    install_apk "snort"
+    install_apk "hydra"
+    install_apk "hashcat"
+    install_apk "john"
+    install_apk "sqlmap@testing"
+    install_apk "ffuf"
+    install_apk "gobuster@testing"
+    install_apk "aircrack-ng"
+    install_apk "wireshark"
+    install_apk "responder@testing"
+    install_metasploit
+    install_apk "netcat-openbsd"
+    install_apk "powershell"
+    install_apk "steghide@testing"
+    install_apk "rkhunter@testing"
+    
+    print_msg "Todas as ferramentas foram instaladas com sucesso!"
+    sleep 3
+}
+
+main() {
+    setup_repos
+    
+    while true; do
+        show_menu
+        read op
+        
+        case "$op" in
+            0) echo -e "${YELLOW}Saindo do instalador...${NC}"; exit 0 ;;
+            1) install_apk "nmap" ;;
+            2) install_apk "nuclei@testing" ;;
+            3) install_apk "netdiscover@testing" ;;
+            4) install_apk "snort" ;;
+            5) install_apk "hydra" ;;
+            6) install_apk "hashcat" ;;
+            7) install_apk "john" ;;
+            8) install_apk "sqlmap@testing" ;;
+            9) install_apk "ffuf" ;;
+            10) install_apk "gobuster@testing" ;;
+            11) install_apk "aircrack-ng" ;;
+            12) install_apk "wireshark" ;;
+            13) install_apk "responder@testing" ;;
+            14) install_metasploit ;;
+            15) install_apk "netcat-openbsd" ;;
+            16) install_apk "powershell" ;;
+            17) install_apk "steghide@testing" ;;
+            18) install_apk "rkhunter@testing" ;;
+            99) install_all ;;
+            *) print_err "Opção inválida!"; sleep 1 ;;
+        esac
+    done
+}
+
 main
